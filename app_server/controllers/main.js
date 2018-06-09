@@ -1,6 +1,6 @@
 
-var scoreController=function(req,res){
-	res.render('index', { title: 'Express' });
+var homeController=function(req,res){
+	res.render('index', { title: 'STUB' });
 };
 
-module.exports.score=scoreController;
+module.exports.home=homeController;
