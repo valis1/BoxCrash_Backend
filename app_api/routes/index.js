@@ -8,3 +8,5 @@ router.post('/scores',ctrlScores.userCreate)
 router.put('/scores/:userID',ctrlScores.userUpdate)
 
 router.get('/reports/statistic',ctrlReports.getStat)
+
+module.exports = router;
