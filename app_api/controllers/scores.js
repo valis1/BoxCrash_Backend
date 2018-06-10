@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+mongoose.Promise = Promise;  
 var Score = mongoose.model('score');
 var Nick= mongoose.model('nick')
 
@@ -6,6 +7,12 @@ var sendJSONresponse = function(res, status, content) {
   res.status(status);
   res.json(content);
 };
+var counter=function(){
+	var count=1;
+	return function(){return count++;};
+};
+
+
 
 var getNick=function(){
 	var r_num=Math.floor(Math.random() * 556) + 1;
@@ -21,36 +28,37 @@ var getNick=function(){
 
 var userCreate=function(req,res){
     var r_num=Math.floor(Math.random() * 556) + 1;
-    Nick.findOne({ num: r_num }, function (err, nick_data) {
-		if (err){
-		     sendJSONresponse(res,400,{error:'Something go Wrong in Nick.findOne '})
-		} else{
-            Score.create({
+    Nick
+       .findOne({ num: r_num })
+       .then(function (nick_data) {
+            return Score.create({
 		       model:req.body.model,
 		       created_date:new Date(),
 		       last_updated_date:new Date(),
 		       nick:nick_data.nickName
-	        },
-	        function(err,user){
-	    	  if (err){
-	    		sendJSONresponse(res,400,{error:'Something Go Wrong in score.create'});
-	    	  } else {
-	    		sendJSONresponse(res,201,user);
-	    	 }
-	    });
-
-		}
-
-	});
+	        })})
+	    .then(user => sendJSONresponse(res,201,user))
+	    .catch(err=> sendJSONresponse(res,400,{error:err}));
 };
 
-var getStatistic=function(req,res){
-	sendJSONresponse(res,200,{stat:'ok'});
+
+var getStatistic=function(req,res){	
 };
 
 var userUpdate=function(req,res){
-	sendJSONresponse(res,200,{stat:'ok'});
-}
+	Score
+	     .findById(req.params.userID)
+	     .then(function(user){
+	     	user.score=parseInt(req.body.scores);
+	     	var last_speed=parseInt(req.body.speed);
+	     	user.avgSpeed=Math.floor((last_speed+user.speed)/2);
+	     	user.speed=last_speed;
+	     	return user.save();
+	     })
+	     .then(user=>sendJSONresponse(res,200,user))
+	     .catch(err=>sendJSONresponse(res,404,{error:err}))
+
+};
 
 
 module.exports.userCreate=userCreate;

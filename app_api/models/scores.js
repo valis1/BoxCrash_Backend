@@ -7,7 +7,8 @@ var scoresSchema = new mongoose.Schema({
     last_updated_date:{type:Date},
     score:{type:Number, default:0},
     speed:{type:Number, default:0},
-    avgSpeed:{type:Number,default:0}
+    avgSpeed:{type:Number,default:0},
+    raiting:{type:Number}
 });
 
 var nickSchema=new mongoose.Schema({
