@@ -61,7 +61,6 @@ var userUpdate=function(req,res){
 	     	return user.save();
 	     })
 	     .then(function(user){
-	     	console.log(user.score);
 	     	return Score
 	     	          .find({})
 	     	          .where('score')
