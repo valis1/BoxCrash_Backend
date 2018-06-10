@@ -51,15 +51,16 @@ var userUpdate=function(req,res){
 	     .then(function(user){
 	     	user.score=parseInt(req.body.scores);
 	     	var last_speed=parseInt(req.body.speed);
-	     	user.avgSpeed=Math.floor((last_speed+user.speed)/2);
-	     	user.speed=last_speed;
+	     	if (last_speed!=0){
+	     	    user.avgSpeed=Math.floor((last_speed+user.speed)/2);
+	     	    user.speed=last_speed;
+	     	}
 	     	return user.save();
 	     })
 	     .then(user=>sendJSONresponse(res,200,user))
 	     .catch(err=>sendJSONresponse(res,404,{error:err}))
 
 };
-
 
 module.exports.userCreate=userCreate;
 module.exports.getStatistic=getStatistic;
