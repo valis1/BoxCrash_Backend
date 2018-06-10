@@ -57,6 +57,7 @@ var userUpdate=function(req,res){
 	     	    user.avgSpeed=Math.floor((last_speed+user.speed)/2);
 	     	    user.speed=last_speed;
 	     	}
+	     	user.last_updated_date=new Date()
 	     	return user.save();
 	     })
 	     .then(function(user){
