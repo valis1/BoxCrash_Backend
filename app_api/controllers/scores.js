@@ -48,8 +48,10 @@ var userUpdate=function(req,res){
 	Score
 	     .findById(req.params.userID)
 	     .then(function(user){
-	     	console.log(parseInt(req.body.scores))
-	     	user.score=parseInt(req.body.scores);
+	     	var src=parseInt(req.body.scores);
+	     	if (src>user.score){
+	     	user.score=src;
+	     	 }
 	     	var last_speed=parseInt(req.body.speed);
 	     	if (last_speed!=0){
 	     	    user.avgSpeed=Math.floor((last_speed+user.speed)/2);
