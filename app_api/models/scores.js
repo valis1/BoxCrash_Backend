@@ -16,5 +16,14 @@ var nickSchema=new mongoose.Schema({
 	nickName:String
 });
 
+var statSchema=new mongoose.Schema({
+	type:{type:String,default:'Prodution'},
+	best_score:Number,
+	total_gamers:Number,
+	nowPlaying:Number,
+	best_speed:Number
+});
+
 mongoose.model('score', scoresSchema);
 mongoose.model('nick', nickSchema,'nicknames');
+mongoose.model('state',statSchema)
