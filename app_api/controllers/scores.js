@@ -42,6 +42,10 @@ var userCreate=function(req,res){
 
 
 var getStatistic=function(req,res){	
+	Score
+	     .findById(req.params.userID)
+	     .then(user=>sendJSONresponse(res,200,user))
+	     .catch(err=>sendJSONresponse(res,404,{error:err}));
 };
 
 var userUpdate=function(req,res){
