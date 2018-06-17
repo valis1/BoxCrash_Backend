@@ -7,10 +7,6 @@ var sendJSONresponse = function(res, status, content) {
   res.status(status);
   res.json(content);
 };
-var counter=function(){
-	var count=1;
-	return function(){return count++;};
-};
 
 
 
