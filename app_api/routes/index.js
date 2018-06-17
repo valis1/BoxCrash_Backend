@@ -7,6 +7,6 @@ router.get('/scores/:userID',ctrlScores.getStatistic)
 router.post('/scores',ctrlScores.userCreate)
 router.put('/scores/:userID',ctrlScores.userUpdate)
 
-router.get('/reports/statistic/:userID',ctrlReports.getStat)
+router.get('/reports/statistic/:func/:userID',ctrlReports.getStat)
 
 module.exports = router;

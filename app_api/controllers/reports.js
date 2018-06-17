@@ -24,12 +24,15 @@ var getStatByUser=function(req,res){
     .then(function(user){
     	let lessDate=user.last_updated_date;
         lessDate.setDate(user.last_updated_date.getDate() -1);
-        let limit=20
-        if (req.body.limit){
-            limit=parseInt(req.body.limit);
+        let limit=10;
+        let func="$gte";
+        if (req.params.func=="down"){
+            func="$lte"
         };
+        let src={};
+        src[func]=user.score;
     	return Score
-    	           .find({"score":{"$gte":user.score},"last_updated_date":{"$gt":lessDate}},"score avgSpeed nick")
+    	           .find({"score":src,"last_updated_date":{"$gt":lessDate}},"score avgSpeed nick")
     	           .sort({"score":1,"last_updated_date":-1})
     	           .limit(limit)
     })
