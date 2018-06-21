@@ -65,7 +65,7 @@ var userUpdate=function(req,res){
 	     	          .find({})
 	     	          .where('score')
 	     	          .gt(user.score)
-	     	          .sort({'score':1})
+	     	          .sort({'score':1,"last_updated_date":-1})
 	     	          .limit(1);
 	     })
 	     .then(user=>sendJSONresponse(res,200,user))

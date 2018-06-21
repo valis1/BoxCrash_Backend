@@ -8,15 +8,7 @@ var sendJSONresponse = function(res, status, content) {
   res.json(content);
 };
 
-var get_more_then=function(user,res){
-	let lessDate=user.last_updated_date;
-	let greaterDate=user.last_updated_date;
-	lessDate.setDate(user.last_updated_date.getDate() -1);
-	greaterDate.setDate(user.last_updated_date.getDate() +1);
-	Score.find({"score":{"$gte":user.score},"last_updated_date":{"$gt":lessDate,"$lt":greaterDate}})
-	.then(scores=>sendJSONresponse(res,200,scores))
-	.catch(err=>sendJSONresponse(res,404,{error:err}))
-}
+
 
 var getStatByUser=function(req,res){
     Score
